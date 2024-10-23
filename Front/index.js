@@ -77,45 +77,47 @@ function loadGames() {
   axios
     .get("http://localhost:3000/games")
     .then((response) => {
-      var games = response.data;
-      var list = document.getElementById("games");
-      list.innerHTML = "";
+      const games = response.data;
+      const gameList = document.getElementById("games");
+      gameList.innerHTML = "";
 
-      for (const key in games) {
-        if (games.hasOwnProperty(key)) {
-          var game = games[key];
-          var item = document.createElement("li");
-
-          item.setAttribute("data-id", key);
-          item.setAttribute("data-title", game.title);
-          item.setAttribute("data-year", game.year);
-          item.setAttribute("data-price", game.price);
-
-          item.innerHTML = `<strong>${game.title}</strong> (${game.year}) - $${game.price}`;
-
-          var deleteBtn = document.createElement("button");
-          deleteBtn.innerHTML = "Deletar";
-          deleteBtn.className = "delete-btn";
-          deleteBtn.addEventListener("click", function () {
-            deleteGame(item);
-          });
-
-          var editBtn = document.createElement("button");
-          editBtn.innerHTML = "Editar";
-          editBtn.className = "edit-btn";
-          editBtn.addEventListener("click", function () {
-            loadForm(item);
-          });
-
-          item.appendChild(deleteBtn);
-          item.appendChild(editBtn);
-          list.appendChild(item);
-        }
-      }
+      Object.entries(games).forEach(([id, game]) => {
+        const listItem = createGameListItem(id, game);
+        gameList.appendChild(listItem);
+      });
     })
     .catch((error) => {
-      console.log(error);
+      console.error("Erro ao carregar os games:", error);
     });
+}
+
+function createGameListItem(id, game) {
+  const listItem = document.createElement("li");
+  listItem.dataset.id = id;
+  listItem.dataset.title = game.title;
+  listItem.dataset.year = game.year;
+  listItem.dataset.price = game.price;
+  listItem.innerHTML = `<strong>${game.title}</strong> (${game.year}) - $${game.price}`;
+
+  const deleteButton = createButton("Deletar", "delete-btn", () =>
+    deleteGame(listItem)
+  );
+  const editButton = createButton("Editar", "edit-btn", () =>
+    loadForm(listItem)
+  );
+
+  listItem.appendChild(deleteButton);
+  listItem.appendChild(editButton);
+
+  return listItem;
+}
+
+function createButton(text, className, onClick) {
+  const button = document.createElement("button");
+  button.textContent = text;
+  button.className = className;
+  button.addEventListener("click", onClick);
+  return button;
 }
 
 loadGames();

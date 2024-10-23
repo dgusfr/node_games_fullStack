@@ -54,8 +54,29 @@ button {
   margin-top: 5px;
 }
 
+.game-form button,
+.edit-form button {
+  display: block;
+  margin: 10px auto; /
+}
+
 button:hover {
   background-color: #45a049;
+}
+
+li {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.button-container {
+  margin-top: 5px;
+}
+
+.button-container button {
+  margin-right: 10px;
 }
 
 .delete-btn {
