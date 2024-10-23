@@ -14,11 +14,21 @@ function createGame() {
     .then((response) => {
       if (response.status === 201) {
         alert("Game cadastrado!");
-        loadGames();
+
+        // Limpa os campos de entrada após a criação
+        titleInput.value = "";
+        yearInput.value = "";
+        priceInput.value = "";
+
+        // Adiciona o novo jogo à lista
+        const newGameId = response.data.id; // Certifique-se de que o backend retorna o ID
+        const gameList = document.getElementById("games");
+        const listItem = createGameListItem(newGameId, game);
+        gameList.appendChild(listItem);
       }
     })
     .catch((err) => {
-      console.log(err);
+      console.log("Erro ao cadastrar o game:", err);
     });
 }
 
@@ -97,17 +107,25 @@ function createGameListItem(id, game) {
   listItem.dataset.title = game.title;
   listItem.dataset.year = game.year;
   listItem.dataset.price = game.price;
+
   listItem.innerHTML = `<strong>${game.title}</strong> (${game.year}) - $${game.price}`;
 
-  const deleteButton = createButton("Deletar", "delete-btn", () =>
-    deleteGame(listItem)
-  );
-  const editButton = createButton("Editar", "edit-btn", () =>
-    loadForm(listItem)
-  );
+  const buttonContainer = document.createElement("div");
+  buttonContainer.className = "button-container";
 
-  listItem.appendChild(deleteButton);
-  listItem.appendChild(editButton);
+  const deleteButton = document.createElement("button");
+  deleteButton.textContent = "Deletar";
+  deleteButton.className = "delete-btn";
+  deleteButton.addEventListener("click", () => deleteGame(listItem));
+
+  const editButton = document.createElement("button");
+  editButton.textContent = "Editar";
+  editButton.className = "edit-btn";
+  editButton.addEventListener("click", () => loadForm(listItem));
+
+  buttonContainer.appendChild(deleteButton);
+  buttonContainer.appendChild(editButton);
+  listItem.appendChild(buttonContainer);
 
   return listItem;
 }
