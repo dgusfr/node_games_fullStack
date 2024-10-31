@@ -157,6 +157,10 @@ Deleta um jogo pelo ID.
 
 4. **O servidor será iniciado na porta 3000.**
 
+5. **Inicie o Front:**
+
+   `Para isso utilize um servidor como liveServer`
+
 ### Teste de API
 
 Você pode usar ferramentas como Postman ou Insomnia para fazer requisições aos endpoints da API.
