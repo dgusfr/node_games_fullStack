@@ -152,7 +152,7 @@ Deleta um jogo pelo ID.
 3. **Inicie o servidor:**
 
    ```bash
-   node index.js
+   node main.js
    ```
 
 4. **O servidor será iniciado na porta 3000.**
