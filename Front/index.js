@@ -1,91 +1,67 @@
-function createGame() {
-  var titleInput = document.getElementById("title");
-  var yearInput = document.getElementById("year");
-  var priceInput = document.getElementById("price");
+const apiUrl = "http://localhost:3000/games";
 
-  var game = {
-    title: titleInput.value,
-    year: parseInt(yearInput.value),
-    price: parseFloat(priceInput.value),
-  };
+// Cria um novo jogo e adiciona à lista
+function createGame() {
+  const game = getGameInputValues("title", "year", "price");
 
   axios
-    .post("http://localhost:3000/games", game)
+    .post(apiUrl, game)
     .then((response) => {
       if (response.status === 201) {
         alert("Game cadastrado!");
+        clearInputs("title", "year", "price");
 
-        // Limpa os campos de entrada após a criação
-        titleInput.value = "";
-        yearInput.value = "";
-        priceInput.value = "";
-
-        // Adiciona o novo jogo à lista
-        const newGameId = response.data.id; // Certifique-se de que o backend retorna o ID
+        const newGameId = response.data.id;
         const gameList = document.getElementById("games");
         const listItem = createGameListItem(newGameId, game);
         gameList.appendChild(listItem);
       }
     })
-    .catch((err) => {
-      console.log("Erro ao cadastrar o game:", err);
-    });
+    .catch((err) => console.log("Erro ao cadastrar o game:", err));
 }
 
+// Exclui o jogo e recarrega a lista
 function deleteGame(listItem) {
-  var id = listItem.getAttribute("data-id");
+  const id = listItem.dataset.id;
   axios
-    .delete("http://localhost:3000/game/" + id)
-    .then((response) => {
+    .delete(`${apiUrl}/${id}`)
+    .then(() => {
       alert("Game deletado!");
       loadGames();
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => console.log(err));
 }
 
+// Carrega os valores do jogo no formulário de edição
 function loadForm(listItem) {
-  var id = listItem.getAttribute("data-id");
-  var title = listItem.getAttribute("data-title");
-  var year = listItem.getAttribute("data-year");
-  var price = listItem.getAttribute("data-price");
-  document.getElementById("idEdit").value = id;
-  document.getElementById("titleEdit").value = title;
-  document.getElementById("yearEdit").value = year;
-  document.getElementById("priceEdit").value = price;
+  setGameInputValues({
+    id: listItem.dataset.id,
+    title: listItem.dataset.title,
+    year: listItem.dataset.year,
+    price: listItem.dataset.price,
+  });
 }
 
+// Atualiza o jogo e recarrega a lista
 function updateGame() {
-  var idInput = document.getElementById("idEdit");
-  var titleInput = document.getElementById("titleEdit");
-  var yearInput = document.getElementById("yearEdit");
-  var priceInput = document.getElementById("priceEdit");
-
-  var game = {
-    title: titleInput.value,
-    year: parseInt(yearInput.value),
-    price: parseFloat(priceInput.value),
-  };
-
-  var id = idInput.value;
+  const game = getGameInputValues("titleEdit", "yearEdit", "priceEdit");
+  const id = document.getElementById("idEdit").value;
 
   axios
-    .put("http://localhost:3000/game/" + id, game)
+    .put(`${apiUrl}/${id}`, game)
     .then((response) => {
       if (response.status === 200) {
         alert("Game atualizado!");
         loadGames();
       }
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => console.log(err));
 }
 
+// Carrega todos os jogos na lista
 function loadGames() {
   axios
-    .get("http://localhost:3000/games")
+    .get(apiUrl)
     .then((response) => {
       const games = response.data;
       const gameList = document.getElementById("games");
@@ -96,11 +72,10 @@ function loadGames() {
         gameList.appendChild(listItem);
       });
     })
-    .catch((error) => {
-      console.error("Erro ao carregar os games:", error);
-    });
+    .catch((error) => console.error("Erro ao carregar os games:", error));
 }
 
+// Cria um item da lista de jogos com os botões de edição e exclusão
 function createGameListItem(id, game) {
   const listItem = document.createElement("li");
   listItem.dataset.id = id;
@@ -112,30 +87,46 @@ function createGameListItem(id, game) {
 
   const buttonContainer = document.createElement("div");
   buttonContainer.className = "button-container";
-
-  const deleteButton = document.createElement("button");
-  deleteButton.textContent = "Deletar";
-  deleteButton.className = "delete-btn";
-  deleteButton.addEventListener("click", () => deleteGame(listItem));
-
-  const editButton = document.createElement("button");
-  editButton.textContent = "Editar";
-  editButton.className = "edit-btn";
-  editButton.addEventListener("click", () => loadForm(listItem));
-
-  buttonContainer.appendChild(deleteButton);
-  buttonContainer.appendChild(editButton);
+  buttonContainer.appendChild(
+    createButton("Deletar", "delete-btn", () => deleteGame(listItem))
+  );
+  buttonContainer.appendChild(
+    createButton("Editar", "edit-btn", () => loadForm(listItem))
+  );
   listItem.appendChild(buttonContainer);
 
   return listItem;
 }
 
+// Auxiliares: Função para criar botões
 function createButton(text, className, onClick) {
   const button = document.createElement("button");
   button.textContent = text;
   button.className = className;
   button.addEventListener("click", onClick);
   return button;
+}
+
+// Auxiliares: Obter valores de entrada do jogo
+function getGameInputValues(titleId, yearId, priceId) {
+  return {
+    title: document.getElementById(titleId).value,
+    year: parseInt(document.getElementById(yearId).value),
+    price: parseFloat(document.getElementById(priceId).value),
+  };
+}
+
+// Auxiliares: Configurar valores de entrada do jogo para edição
+function setGameInputValues({ id, title, year, price }) {
+  document.getElementById("idEdit").value = id;
+  document.getElementById("titleEdit").value = title;
+  document.getElementById("yearEdit").value = year;
+  document.getElementById("priceEdit").value = price;
+}
+
+// Auxiliares: Limpar campos de entrada
+function clearInputs(...inputIds) {
+  inputIds.forEach((id) => (document.getElementById(id).value = ""));
 }
 
 loadGames();
