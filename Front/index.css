@@ -16,7 +16,11 @@ body {
   padding: 20px;
   width: 80%;
   max-width: 800px;
+  max-height: 90vh; 
+  overflow-y: auto; 
+  margin: 20px auto;
 }
+
 
 main {
   display: grid;
@@ -26,6 +30,7 @@ main {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+
 }
 
 section {
