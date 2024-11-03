@@ -10,6 +10,12 @@ Uma API simples para gerenciar jogos, permitindo operações CRUD (Create, Read,
 
 #### OBS: Os 3 primeiros jogos que são carregados quando abrimos a pagina, são os jogos já contidos no nosso DB em nossa API.
 
+<div align="center">
+  <img src="img/logo2.png" alt="Imagem do Projeto" width="900">
+</div>
+
+#### Via Front-end podemos adicionar, editar e excluir jogos que desejarmos.
+
 ## Sumário
 
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
