@@ -160,8 +160,6 @@ Deleta um jogo pelo ID.
   - **Código**: 404 Not Found
     - **Conteúdo**: Mensagem indicando que o jogo não foi encontrado.
 
-## Como Usar
-
 ### Teste de API
 
 Você pode usar ferramentas como Postman ou Insomnia para fazer requisições aos endpoints da API.
