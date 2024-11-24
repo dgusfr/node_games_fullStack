@@ -201,4 +201,4 @@ Testes concluídos.
 
 ## Autor
 
-Desenvolvido por Diego Franco
+Desenvolvido por Diego Franco.
