@@ -61,7 +61,10 @@ const dataBase = {
 ## Documentação completa da API
 
 <br>
+
 ### Endpoints
+
+<br>
 
 #### GET /games
 
@@ -72,6 +75,8 @@ Retorna a lista de todos os jogos.
 - **Respostas de Sucesso**:
   - **Código**: 200 OK
     - **Conteúdo**: JSON com a lista de jogos.
+
+<br>
 
 #### GET /game/:id
 
