@@ -162,12 +162,6 @@ Deleta um jogo pelo ID.
 
 ## Como Usar
 
-1. **Clone o repositório:**
-
-   ```bash
-   git clone https://github.com/seu-usuario/seu-repositorio.git
-   ```
-
 2. **Instale as dependências:**
 
    ```bash
