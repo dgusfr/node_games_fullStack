@@ -95,6 +95,8 @@ Retorna os detalhes de um jogo específico pelo ID.
   - **Código**: 404 Not Found
     - **Conteúdo**: Mensagem indicando que o jogo não foi encontrado.
 
+<br>
+
 #### POST /games
 
 Adiciona um novo jogo.
@@ -113,6 +115,8 @@ Adiciona um novo jogo.
 - **Erros**:
   - **Código**: 400 Bad Request
     - **Conteúdo**: Mensagem indicando que os parâmetros são inválidos.
+
+<br>
 
 #### PUT /game/:id
 
@@ -136,6 +140,8 @@ Atualiza as informações de um jogo existente.
     - **Conteúdo**: Mensagem indicando que o ID é inválido.
   - **Código**: 404 Not Found
     - **Conteúdo**: Mensagem indicando que o jogo não foi encontrado.
+
+<br>
 
 #### DELETE /game/:id
 
