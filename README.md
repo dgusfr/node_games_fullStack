@@ -162,13 +162,6 @@ Deleta um jogo pelo ID.
 
 ## Como Usar
 
-2. **Instale as dependências:**
-
-   ```bash
-   cd seu-repositorio
-   npm install
-   ```
-
 3. **Inicie o servidor:**
 
    ```bash
