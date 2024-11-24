@@ -162,12 +162,6 @@ Deleta um jogo pelo ID.
 
 ## Como Usar
 
-3. **Inicie o servidor:**
-
-   ```bash
-   node main.js
-   ```
-
 4. **O servidor será iniciado na porta 3000.**
 
 5. **Inicie o Front:**
