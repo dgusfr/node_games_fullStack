@@ -5,7 +5,7 @@ Uma API simples para gerenciar jogos, permitindo operações CRUD (Create, Read,
 ## Interface
 
 <div align="center">
-  <img src="img/logo.png" alt="Imagem do Projeto" width="900">
+  <img src="images/logo.png" alt="Imagem do Projeto" width="900">
 </div>
 
 #### OBS: Os 3 primeiros jogos que são carregados quando abrimos a pagina, são os jogos já contidos no nosso DB em nossa API.
